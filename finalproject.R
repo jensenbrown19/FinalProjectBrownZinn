@@ -3,7 +3,8 @@
 
 library(rgdal)
 
-tree_data <- read_xlsx("ENVS 4826 Project Data.xlsx")
+class_data <- read_xlsx("ENVS 4826 Project Data.xlsx")
+tree_data <- read.csv("SMUtreedatabase2021.csv")
 
 campus_buildings <- readOGR(dsn = 'C:/Users/jense/Desktop/ENVS 4826 - Data Science in the Environment/FinalProject/CampusMap_Background_SHP', layer = "CampusBuildings")
 greenspace <- readOGR(dsn = 'C:/Users/jense/Desktop/ENVS 4826 - Data Science in the Environment/FinalProject/CampusMap_Background_SHP', layer = "Greenspace")
