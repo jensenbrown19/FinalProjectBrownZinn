@@ -28,8 +28,8 @@ pavement_df <- fortify(pavement)
 
 # Plotting
 ggplot() +
-  geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue") +
-  geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition)) +
-  scale_colour_manual(values = c('Yellow', 'Green', 'Red', 'Black')) +
+  geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue", fill = "Light Blue") +
+  geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition), size = 1) +
+  scale_colour_manual(values = c('Yellow', 'Green', 'Red', 'Black'), labels = c('Fair', 'Good', 'Poor', 'NA')) +
   labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition")
 
