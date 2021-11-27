@@ -26,10 +26,12 @@ greenspace_df <- fortify(greenspace)
 pathways_df <- fortify(pathways)
 pavement_df <- fortify(pavement)
 
-# Plotting
+# Plotting Map
 ggplot() +
   geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue", fill = "Light Blue") +
   geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition), size = 1) +
   scale_colour_manual(values = c('Yellow', 'Green', 'Red', 'Black'), labels = c('Fair', 'Good', 'Poor', 'NA')) +
-  labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition")
+  labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
+  theme_bw()
 
+# Math!!!!
