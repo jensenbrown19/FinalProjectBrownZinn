@@ -6,6 +6,7 @@ library(rgdal)
 library(ggplot2)
 library(readxl)
 library(tidyverse)
+library(rgeos)
 
 # Reading spreadsheets, merging spreadsheets, and filtering spreadsheet
 class_data <- read_xlsx("ENVS 4826 Project Data.xlsx")
@@ -34,4 +35,9 @@ ggplot() +
   labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
   theme_bw()
 
-# Math!!!!
+# Creating a function
+calculate_distance_utm <- function(x1, x2, y1, y2) {
+  distance = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+  return(distance)
+}
+
