@@ -35,9 +35,11 @@ ggplot() +
   labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
   theme_bw()
 
-# Creating a function
+# Creating distance function
 calculate_distance_utm <- function(x1, x2, y1, y2) {
   distance = sqrt((x2 - x1)^2 + (y2 - y1)^2)
   return(distance)
 }
 
+# Testing distance function
+calculate_distance_utm(campus_data$UTMX, campus_buildings_df$long, campus_data$UTMY, campus_buildings_df$lat)
