@@ -12,6 +12,7 @@ class_data <- read_xlsx("ENVS 4826 Project Data.xlsx")
 tree_data <-  read_xlsx("SMUtreedatabase2021.xlsx")
 project_data <- merge(class_data, tree_data, by = "uid_4826")
 campus_data <- filter(project_data, location == "SMU campus")
+campus_data_fixed <- 
 
 # Reading shapefiles
 campus_buildings <- readOGR(dsn = 'C:/Users/jense/Desktop/ENVS 4826 - Data Science in the Environment/FinalProject/CampusMap_Background_SHP', layer = "CampusBuildings")
@@ -26,6 +27,10 @@ pathways_df <- fortify(pathways)
 pavement_df <- fortify(pavement)
 
 # Plotting
-ggplot()+
-  geom_point(data = campus_data, x = campus_data$long, y = campus_data$lat) +
-  geom_polygon(data = campus_buildings_df, x = campus_buildings_df$long, y = campus_buildings_df$lat)
+ggplot() +
+  geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue") +
+  geom_polygon(data = greenspace_df, aes(x = long, y = lat, group = group), colour = "Green") +
+  geom_polygon(data = pathways_df, aes(x = long, y = lat, group = group)) +
+  geom_polygon(data = pavement_df, aes(x = long, y = lat, group = group)) +
+  geom_point(data = campus_data, aes(x = UTMX, y = UTMY), colour = "Red") +
+  labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude")
