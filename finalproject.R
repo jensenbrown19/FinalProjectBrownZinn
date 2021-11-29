@@ -52,7 +52,9 @@ campus_data_fixed <- st_read("C:/Users/jense/Desktop/ENVS 4826 - Data Science in
 st_crs(campus_data_fixed)
 st_crs(campus_buildings)
 campus_data_fixed <- st_set_crs(campus_data_fixed, 'EPSG:26920')
+campus_data <- st_set_crs(campus_data, 'EPSG:26920')
+campus_data_fixed = subset(campus_data_fixed, select = -c(x,y))
 
-min(st_distance(campus_buildings, campus_data_fixed[1, ]))
+min(st_distance(campus_buildings, campus_data_fixed[1,]))
 
 lm_crown <- lm(crown_condition_int ~ distance_crown, data = )
