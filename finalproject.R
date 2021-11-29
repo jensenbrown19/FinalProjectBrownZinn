@@ -8,6 +8,9 @@ library(readxl)
 library(tidyverse)
 library(rgeos)
 library(dplyr)
+library(sf)
+library(sp)
+library(spdep)
 
 # Reading spreadsheets, merging spreadsheets, and filtering spreadsheet
 class_data <- read_xlsx("ENVS 4826 Project Data.xlsx")
@@ -36,7 +39,7 @@ ggplot() +
   geom_polygon(data = pavement_df, aes(x = long, y = lat, group = group), colour = "Black", fill = "Gray") +
   geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition_int), size = 1) +
   scale_colour_manual(values = c('Red', 'Green', 'Black'), labels = c('Fair/Poor', 'Good', 'NA')) +
-  labs(title = "Crown Condition of Trees Around SMU Campus with Respect to Infrastructure", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
+  labs(title = "Crown Condition of Trees Around SMU Campus with Respect to Infrastructure", x = "UTMX", y = "UTMY", colour = "Crown Condition") +
   theme_bw()
 
 # Plotting Trunk Damage Map
@@ -45,7 +48,7 @@ ggplot() +
   geom_polygon(data = pavement_df, aes(x = long, y = lat, group = group), colour = "Black", fill = "Gray") +
   geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = trunk_damage), size = 1) +
   scale_colour_manual(values = c('Green', 'Red', 'Black'), labels = c('Absent', 'Present', 'NA')) +
-  labs(title = "Presence of Trunk Damage Trees Around SMU Campus with Respect to Infrastructure", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
+  labs(title = "Presence of Trunk Damage Trees Around SMU Campus with Respect to Infrastructure", x = "UTMX", y = "UTMY", colour = "Crown Condition") +
   theme_bw()
 
 # Creating distance function
@@ -54,5 +57,9 @@ calculate_distance_utm <- function(x1, x2, y1, y2) {
   return(distance)
 }
 
-# Testing distance function
-calculate_distance_utm(campus_data$UTMX, campus_buildings_df$long, campus_data$UTMY, campus_buildings_df$lat)
+# Calculating crown distance
+distance_crown <- calculate_distance_utm(campus_buildings_df$long, campus_data$UTMX, campus_buildings_df$lat, campus_data$UTMY)
+campus_data$distance_crown <- distance_crown
+
+
+lm_crown <- lm(crown_condition_int ~ distance_crown, data = )
