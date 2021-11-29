@@ -30,13 +30,22 @@ greenspace_df <- fortify(greenspace)
 pathways_df <- fortify(pathways)
 pavement_df <- fortify(pavement)
 
-# Plotting Map
+# Plotting Crown Condition Map
 ggplot() +
   geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue", fill = "Light Blue") +
   geom_polygon(data = pavement_df, aes(x = long, y = lat, group = group), colour = "Black", fill = "Gray") +
-  geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition), size = 1) +
-  scale_colour_manual(values = c('Yellow', 'Green', 'Red', 'Black'), labels = c('Fair', 'Good', 'Poor', 'NA')) +
-  labs(title = "Crown Condition of Trees Around SMU Campus", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
+  geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = crown_condition_int), size = 1) +
+  scale_colour_manual(values = c('Red', 'Green', 'Black'), labels = c('Fair/Poor', 'Good', 'NA')) +
+  labs(title = "Crown Condition of Trees Around SMU Campus with Respect to Infrastructure", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
+  theme_bw()
+
+# Plotting Trunk Damage Map
+ggplot() +
+  geom_polygon(data = campus_buildings_df, aes(x = long, y = lat, group = group), colour = "Blue", fill = "Light Blue") +
+  geom_polygon(data = pavement_df, aes(x = long, y = lat, group = group), colour = "Black", fill = "Gray") +
+  geom_point(data = campus_data, aes(x = UTMX, y = UTMY, col = trunk_damage), size = 1) +
+  scale_colour_manual(values = c('Green', 'Red', 'Black'), labels = c('Absent', 'Present', 'NA')) +
+  labs(title = "Presence of Trunk Damage Trees Around SMU Campus with Respect to Infrastructure", x = "Longitude", y = "Latitude", colour = "Crown Condition") +
   theme_bw()
 
 # Creating distance function
